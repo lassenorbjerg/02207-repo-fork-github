@@ -12,6 +12,7 @@ async def mux_basic_test(dut):
   clk = Clock(signal=dut.clk, period=2, unit="ns")
   clk.start()
 
+
 @cocotb.test()
 async def mux_randomized_test(dut):
   """Test for randomizing out=A[sel]"""
@@ -20,3 +21,4 @@ async def mux_randomized_test(dut):
   # NOTE: NO reset signal in the RTL
   clk = Clock(signal=dut.clk, period=2, unit="ns")
   clk.start()
+
