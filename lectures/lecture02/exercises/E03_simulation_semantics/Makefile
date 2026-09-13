@@ -1,3 +1,5 @@
+E03_BASE_DIR := $(abspath $(dir $(lastword $(MAKEFILE_LIST))))
+
 IVERILOG ?= iverilog
 VVP      ?= vvp
 
@@ -5,7 +7,7 @@ SOURCES := 01_race_demo.v 02_feedback_race.v 03_reset_release_race.v
 TARGETS := $(SOURCES:.v=.vvp)
 WAVES   := $(SOURCES:.v=.fst)
 
-.PHONY: all run clean
+.PHONY: all run clean E03_clean
 .PHONY: 01_race_demo clean_01_race_demo
 .PHONY: 02_feedback_race clean_02_feedback_race
 .PHONY: 03_reset_release_race clean_03_reset_release_race
@@ -13,6 +15,9 @@ WAVES   := $(SOURCES:.v=.fst)
 all: 01_race_demo 02_feedback_race 03_reset_release_race
 
 run: all
+
+E03_clean:
+	$(MAKE) -C $(E03_BASE_DIR) clean
 
 %.vvp: %.v
 	$(IVERILOG) -g2012 -o $@ $<

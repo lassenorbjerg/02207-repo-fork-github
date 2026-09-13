@@ -12,11 +12,7 @@ VERILOG_SOURCES += $(PWD)/../rtl/parallel.sv
 COCOTB_TOPLEVEL := parallel
 
 # COCOTB_TEST_MODULES is the basename of the Python test file
-#__RELEASE_REPLACE_BEGIN__
-COCOTB_TEST_MODULES   := test_forks
-#__RELEASE_REPLACE_WITH__
-# COCOTB_TEST_MODULES   := <your_test_name>
-#__RELEASE_REPLACE_END__[COMMENT_STRING="# "]
+COCOTB_TEST_MODULES   := <your_test_name>
 
 # include cocotb's make rules to take care of the simulator setup
 include $(shell cocotb-config --makefiles)/Makefile.sim
