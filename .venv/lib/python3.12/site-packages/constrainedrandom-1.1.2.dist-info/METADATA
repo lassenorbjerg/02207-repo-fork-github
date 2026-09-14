@@ -1,0 +1,88 @@
+Metadata-Version: 2.1
+Name: constrainedrandom
+Version: 1.1.2
+Summary: A library for creating and solving constrained randomization problems
+Project-URL: Homepage, https://github.com/imaginationtech/constrainedrandom
+Project-URL: Bug Tracker, https://github.com/imaginationtech/constrainedrandom/issues
+Author-email: Will Keen <william.keen@imgtec.com>
+License: MIT License
+        
+        Copyright (c) 2023 Imagination Technologies Ltd.
+        
+        Permission is hereby granted, free of charge, to any person obtaining a copy
+        of this software and associated documentation files (the "Software"), to deal
+        in the Software without restriction, including without limitation the rights
+        to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+        copies of the Software, and to permit persons to whom the Software is
+        furnished to do so, subject to the following conditions:
+        
+        The above copyright notice and this permission notice shall be included in all
+        copies or substantial portions of the Software.
+        
+        THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+        IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+        FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+        AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+        LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+        OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+        SOFTWARE.
+License-File: LICENSE
+Keywords: constrained,constraint,random,randomization,verification
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Topic :: Scientific/Engineering
+Requires-Python: >=3.8.3
+Requires-Dist: python-constraint>=1.4.0
+Description-Content-Type: text/markdown
+
+# `constrainedrandom`
+
+A package for creating and solving constrained randomization problems.
+
+Use this package to create SystemVerilog-style "declarative" randomizable objects in Python.
+
+This is achieved by providing wrappers around the Python [`random`](https://docs.python.org/3/library/random.html) and [`constraint`](https://pypi.org/project/python-constraint/) packages, and aims to be as efficient as possible in a language like Python.
+
+
+## Installation
+
+```bash
+$ pip install constrainedrandom
+```
+
+## Documentation
+
+[Read the docs here](https://constrainedrandom.readthedocs.io/en/latest/)
+
+To build the documentation yourself:
+```bash
+$ cd docs
+$ make html
+```
+
+The index page is at `docs/_build/html/index.html` - you can open this in a web browser.
+
+## Releases/versioning
+
+Releases are created using tags from the repository and can be found on [PyPI](https://pypi.org/project/constrainedrandom/).
+
+Versioning attempts to follow [Semantic Versioning](https://semver.org/).
+
+## Contributions
+
+Please feel free to contribute to the project, following these guidelines:
+- Please contribute by creating a fork and submitting a pull request.
+- Pull requests should be as small as possible to resolve the issue they are trying to address.
+- Pull requests must respect the goals of the library, as stated in the documentation.
+- Pull requests should maintain backwards compatibility at least as far as Python 3.8.
+- Pull requests should pass all the tests in the `tests/` directory. Run `python -m tests`.
+- Pull requests should take care not to make performance worse except for cases which require bug fixes. Run `python -m tests` and `python -m benchmarks`.
+- Pull requests should update the documentation for any added/changed functionality.
+
+## `TODO`
+  - Add proper CI using tox or similar, testing Python versions 3.8..current
+  - Add equivalent SystemVerilog testcases for benchmarking.
+
+## Contact the author(s)
+
+Will Keen - william.keen@imgtec.com

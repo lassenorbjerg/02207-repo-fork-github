@@ -1,0 +1,16 @@
+Metadata-Version: 2.1
+Name: pyucis-viewer
+Version: 0.0.4.2630346819
+Summary: PyUCIS Viewer QT5-based viewer for UCIS data.
+Home-page: https://github.com/fvutils/pyucis-viewer
+Author: Matthew Ballance
+Author-email: matt.ballance@gmail.com
+License: Apache 2.0
+Keywords: SystemVerilog,Verilog,RTL,Coverage
+License-File: LICENSE
+Requires-Dist: pyqt5
+Requires-Dist: pyucis (>=0.0.6)
+
+
+  Extremely simple graphical viewer for coverage data in a UCIS database
+  
