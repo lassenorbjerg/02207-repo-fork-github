@@ -1,3 +1,5 @@
+https://gitlab.gbar.dtu.dk/s253860/02207-repo-fork/-/tree/Labs
+
 # 02207-repo
 
 Welcome to the repo of 02207 Verification of Digital Systems, fall 2026.
