@@ -1,0 +1,6 @@
+<testsuites name="results">
+  <testsuite name="all" package="all">
+    <property name="random_seed" value="1789666457" />
+    <testcase name="sat_default_test" classname="sat_default_test" file="/home/Lasse-docker/02207-repo-fork/.venv/lib/python3.12/site-packages/pyuvm/extension_classes.py" lineno="36" time="0.0015392303466796875" sim_time_ns="14.0" ratio_time="9095.454770755887" />
+  </testsuite>
+</testsuites>

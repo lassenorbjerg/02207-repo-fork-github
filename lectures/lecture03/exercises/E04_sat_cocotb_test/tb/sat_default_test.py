@@ -15,9 +15,16 @@ async def transaction(dut, data):
     dut.in_valid.value = 1
 
     await RisingEdge(dut.clk)
+    await ReadOnly()
+
+    while dut.out_valid.value != 1:
+        await RisingEdge(dut.clk)
+        await ReadOnly()
 
     assert dut.out_valid.value == 1
     assert dut.out_data.value == data if data < THRESHOLD else THRESHOLD
+
+    await RisingEdge(dut.clk)
 
     dut.in_data.value = 0
     dut.in_valid.value = 0
