@@ -9,3 +9,6 @@ pytest == 8.1
 
 # Visualise coverage
 pyucis-viewer==0.0.4.*
+
+# randShow, PyUVMTBViewer requirements
+PyQt5>=5.15.10
