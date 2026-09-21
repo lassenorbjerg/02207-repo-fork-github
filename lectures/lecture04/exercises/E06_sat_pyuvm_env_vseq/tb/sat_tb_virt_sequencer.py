@@ -9,3 +9,10 @@ class sat_tb_virt_sequencer(uvm_sequencer):
         super().__init__(name, parent)
         self.cfg = None
 
+    def build_phase(self):
+        super().build_phase()
+
+        self.cfg = ConfigDB().get(self, "", "cfg")
+
+    
+

@@ -11,7 +11,9 @@ from pyuvm import ConfigDB, uvm_test
 from sat_tb_config import sat_tb_config
 from sat_tb_defaut_seq import sat_tb_default_seq
 from sat_tb_env import sat_tb_env
+from typing import TypeVar
 
+configT =TypeVar(name="configT", bound=sat_tb_config)
 
 
 class ssdt_interface_wrapper():
@@ -29,52 +31,28 @@ class ssdt_interface_wrapper():
         self.data = data_signal
 
 
-DATA_W = 8
-THRESHOLD = 64
-
-async def transaction(dut, data):
-
-    dut.in_.data.value = data
-    dut.in_.valid.value = 1
-
-    await RisingEdge(dut.clk)
-    await ReadOnly()
-
-    while dut.out_.valid.value != 1:
-        await RisingEdge(dut.clk)
-        await ReadOnly()
-
-    assert dut.out_.valid.value == 1
-    assert dut.out_.data.value == data if data < THRESHOLD else THRESHOLD
-
-    await RisingEdge(dut.clk)
-
-    dut.in_.data.value = 0
-    dut.in_.valid.value = 0
-
-    await RisingEdge(dut.clk)
-
-
 @pyuvm.test()
-class sat_interface_test(uvm_test):
+class sat_default_test(uvm_test):
     def build_phase(self):
         super().build_phase()
         dut = cocotb.top
         self.dut = dut
         self.clk = dut.clk
-        self.env = sat_tb_env.create("env", parent=self)
+        self.env: sat_tb_env = sat_tb_env.create("env", parent=self)
+        self.config: sat_tb_config = sat_tb_config.create(name="config") # type: ignore
+        self.config.input_if = ssdt_interface_wrapper(name="input_if")
+        self.config.output_if = ssdt_interface_wrapper(name="output_if")
+        ConfigDB().set(self, "env", "cfg", self.config)
 
     def connect_phase(self):
         dut=self.dut
-        self.in_ = ssdt_interface_wrapper()
-        self.in_.connect(
+        self.input_if.connect(
             clk_signal=dut.clk,
             reset_signal=dut.rst,
             valid_signal=dut.in_valid,
             data_signal=dut.in_data,
         )
-        self.out_ = ssdt_interface_wrapper()
-        self.out_.connect(
+        self.output_if.connect(
             clk_signal=dut.clk,
             reset_signal=dut.rst,
             valid_signal=dut.out_valid,
@@ -85,8 +63,8 @@ class sat_interface_test(uvm_test):
         self.raise_objection()
         await super().run_phase()
 
-        dut_in: ssdt_interface_wrapper = self.in_
-        dut_out: ssdt_interface_wrapper = self.out_
+        dut_in: ssdt_interface_wrapper = self.input_if
+        dut_out: ssdt_interface_wrapper = self.output_if
 
         Clock(signal=dut_in.clk, period=2, unit="ns").start()
 
@@ -99,6 +77,9 @@ class sat_interface_test(uvm_test):
         dut_in.rst.value = 0
 
         await RisingEdge(dut_in.clk)
+
+        seq = sat_tb_default_seq()
+        await seq.start(seqr=self.env.virtual_sequencer)
 
         self.drop_objection()
 
