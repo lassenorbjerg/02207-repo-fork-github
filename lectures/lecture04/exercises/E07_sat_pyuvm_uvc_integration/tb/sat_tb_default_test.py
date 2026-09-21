@@ -1,7 +1,3 @@
-#
-# Simple PyUVM test using interface wrappers.
-#
-
 import cocotb
 import pyuvm
 from cocotb.clock import Clock
