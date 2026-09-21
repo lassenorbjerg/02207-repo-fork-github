@@ -62,6 +62,7 @@ class sat_interface_test(uvm_test):
         dut = cocotb.top
         self.dut = dut
         self.clk = dut.clk
+        self.env = sat_tb_env.create("env", parent=self)
 
     def connect_phase(self):
         dut=self.dut
@@ -98,10 +99,6 @@ class sat_interface_test(uvm_test):
         dut_in.rst.value = 0
 
         await RisingEdge(dut_in.clk)
-
-        await transaction(self, THRESHOLD - 5)
-
-        await transaction(self, THRESHOLD + 5)
 
         self.drop_objection()
 
