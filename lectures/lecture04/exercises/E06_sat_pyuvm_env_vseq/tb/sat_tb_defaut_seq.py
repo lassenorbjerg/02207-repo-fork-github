@@ -21,29 +21,30 @@ class sat_tb_default_seq(uvm_sequence):
 
     async def _transaction_helper(self, data):
         cfg  = self.cfg
+        clk = cfg.input_if.clk
         
-        await RisingEdge(cfg.clk)  # NOTE: video waits before as well
+        await RisingEdge(clk)  # NOTE: video waits before as well
 
         # NOTE: BUGFOUND: NOTE: if is a postfix. NOT a prefix. if_input before
         cfg.input_if.data.value = data
         cfg.input_if.valid.value = 1
 
-        await RisingEdge(cfg.clk)
+        await RisingEdge(clk)
         await ReadOnly()
 
         while cfg.output_if.valid.value != 1:
-            await RisingEdge(cfg.clk)
+            await RisingEdge(clk)
             await ReadOnly()
 
         assert cfg.output_if.valid.value == 1
         assert cfg.output_if.data.value == data if data < THRESHOLD else THRESHOLD
 
-        await RisingEdge(cfg.clk)
+        await RisingEdge(clk)
 
         cfg.input_if.data.value = 0
         cfg.input_if.valid.value = 0
 
-        await RisingEdge(cfg.clk)
+        await RisingEdge(clk)
 
 
     async def body(self):
