@@ -1,1 +1,0 @@
-See verification_env_setup/verification_env_setup.pdf PDF.

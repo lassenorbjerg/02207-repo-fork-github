@@ -1,8 +1,0 @@
-<testsuites name="results">
-  <testsuite name="all" package="all">
-    <property name="random_seed" value="1789736735" />
-    <testcase name="sat_default_test" classname="sat_default_test" file="/home/Lasse-docker/02207-repo-fork/.venv/lib/python3.12/site-packages/pyuvm/extension_classes.py" lineno="36" time="0.0045626163482666016" sim_time_ns="14.0" ratio_time="3068.4149030673566" />
-    <testcase name="RandomTest" classname="sat_random_test" file="/home/Lasse-docker/02207-repo-fork/.venv/lib/python3.12/site-packages/pyuvm/extension_classes.py" lineno="62" time="0.025197267532348633" sim_time_ns="64.0" ratio_time="2539.957950513318" />
-    <testcase name="sat_interface_test" classname="sat_interface_test" file="/home/Lasse-docker/02207-repo-fork/.venv/lib/python3.12/site-packages/pyuvm/extension_classes.py" lineno="54" time="0.013442039489746094" sim_time_ns="16.0" ratio_time="1190.2955658034764" />
-  </testsuite>
-</testsuites>
