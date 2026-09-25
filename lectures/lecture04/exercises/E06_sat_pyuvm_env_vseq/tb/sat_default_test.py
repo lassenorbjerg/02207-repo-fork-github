@@ -76,6 +76,6 @@ class sat_default_test(uvm_test):
         # await seq.start(seqr=self.env.virtual_sequencer)
         # NOTE: BUGFOUND: NOTE: new
         self.top_virtual_sequence = sat_tb_default_seq.create(name="top_virtual_sequence")
-        self.top_virtual_sequence.start(seqr=self.sat_tb_env.virtual_sequencer)
+        await self.top_virtual_sequence.start(seqr=self.sat_tb_env.virtual_sequencer)
 
         self.drop_objection()
