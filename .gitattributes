@@ -1,0 +1,6 @@
+# Normalize all text files to LF line endings, regardless of what
+# gets checked in or out on Windows.
+* text=auto eol=lf
+
+# Explicitly binary files (never touched by line-ending normalization).
+*.pdf binary
