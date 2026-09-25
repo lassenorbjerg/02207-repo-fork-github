@@ -8,38 +8,43 @@ THRESHOLD = 64
 
 
 class sat_tb_default_seq(uvm_sequence):
-    def __init__(self, name="uvm_sequence"):
+    def __init__(self, name="sat_tb_default_seq"):  # NOTE: Changed default name
         super().__init__(name)
         self.sequencer = None
         self.cfg = None
 
-    async def pre_body(self):
+    async def pre_body(self):  # NOTE: This is supposed to be async right? TAG
         await super().pre_body()
 
         self.cfg = self.sequencer.cfg
+        # NOTE: Video defines self.input_if = self.cfg.input_if. We define a variable in _transaction_helper that achieves the same thing
 
     async def _transaction_helper(self, data):
         cfg  = self.cfg
+        clk = cfg.input_if.clk
         
-        cfg.if_input.data.value = data
-        cfg.if_input.valid.value = 1
+        await RisingEdge(clk)  # NOTE: video waits before as well
 
-        await RisingEdge(cfg.clk)
+        # NOTE: BUGFOUND: NOTE: if is a postfix. NOT a prefix. if_input before
+        cfg.input_if.data.value = data
+        cfg.input_if.valid.value = 1
+
+        await RisingEdge(clk)
         await ReadOnly()
 
-        while cfg.if_output.valid.value != 1:
-            await RisingEdge(cfg.clk)
+        while cfg.output_if.valid.value != 1:
+            await RisingEdge(clk)
             await ReadOnly()
 
-        assert cfg.if_output.valid.value == 1
-        assert cfg.if_output.data.value == data if data < THRESHOLD else THRESHOLD
+        assert cfg.output_if.valid.value == 1
+        assert cfg.output_if.data.value == data if data < THRESHOLD else THRESHOLD
 
-        await RisingEdge(cfg.clk)
+        await RisingEdge(clk)
 
-        cfg.if_input.data.value = 0
-        cfg.if_input.valid.value = 0
+        cfg.input_if.data.value = 0
+        cfg.input_if.valid.value = 0
 
-        await RisingEdge(cfg.clk)
+        await RisingEdge(clk)
 
 
     async def body(self):

@@ -12,40 +12,32 @@ from sat_tb_config import sat_tb_config
 from sat_tb_defaut_seq import sat_tb_default_seq
 from sat_tb_env import sat_tb_env
 from typing import TypeVar
-
-configT =TypeVar(name="configT", bound=sat_tb_config)
-
-
-class ssdt_interface_wrapper():
-    def __init__(self, clk=None, rst=None, name="ssdt_interface"):
-        self.name = name
-        self.clk = clk
-        self.rst = rst
-        self.valid = None
-        self.data = None
-
-    def connect(self, clk_signal, reset_signal, valid_signal, data_signal):
-        self.clk = clk_signal
-        self.rst = reset_signal
-        self.valid = valid_signal
-        self.data = data_signal
+from ssdt_interface import ssdt_interface_wrapper  # NOTE: Import instead of defined here
 
 
 @pyuvm.test()
 class sat_default_test(uvm_test):
     def build_phase(self):
         super().build_phase()
-        dut = cocotb.top
-        self.dut = dut
-        self.clk = dut.clk
-        self.env: sat_tb_env = sat_tb_env.create("env", parent=self)
-        self.config: sat_tb_config = sat_tb_config.create(name="config") # type: ignore
-        self.config.input_if = ssdt_interface_wrapper(name="input_if")
-        self.config.output_if = ssdt_interface_wrapper(name="output_if")
-        ConfigDB().set(self, "env", "cfg", self.config)
+        self.dut = cocotb.top
+        self.input_if = ssdt_interface_wrapper(name="input_if")
+        self.output_if = ssdt_interface_wrapper(name="output_if")
+
+        self.cfg = sat_tb_config.create(name="cfg")  # type: ignore
+        self.cfg.input_if = self.input_if
+        self.cfg.output_if = self.output_if
+
+        self.sat_tb_env = sat_tb_env.create(name="sat_tb_env", parent=self)
+
+        ConfigDB().set(
+            context=self,
+            inst_name="sat_tb_env",
+            field_name="cfg",
+            value=self.cfg,
+        )
 
     def connect_phase(self):
-        dut=self.dut
+        dut = self.dut
         self.input_if.connect(
             clk_signal=dut.clk,
             reset_signal=dut.rst,
@@ -66,7 +58,8 @@ class sat_default_test(uvm_test):
         dut_in: ssdt_interface_wrapper = self.input_if
         dut_out: ssdt_interface_wrapper = self.output_if
 
-        Clock(signal=dut_in.clk, period=2, unit="ns").start()
+        clock = Clock(signal=dut_in.clk, period=2, unit="ns")
+        cocotb.start_soon(clock.start())  # NOTE: clock was started immediately in segfault
 
         dut_in.rst.value = 1
         dut_in.valid.value = 0
@@ -78,8 +71,11 @@ class sat_default_test(uvm_test):
 
         await RisingEdge(dut_in.clk)
 
-        seq = sat_tb_default_seq()
-        await seq.start(seqr=self.env.virtual_sequencer)
+        # NOTE: BUGFOUND: NOTE: old
+        # seq = sat_tb_default_seq()
+        # await seq.start(seqr=self.env.virtual_sequencer)
+        # NOTE: BUGFOUND: NOTE: new
+        self.top_virtual_sequence = sat_tb_default_seq.create(name="top_virtual_sequence")
+        await self.top_virtual_sequence.start(seqr=self.sat_tb_env.virtual_sequencer)
 
         self.drop_objection()
-
