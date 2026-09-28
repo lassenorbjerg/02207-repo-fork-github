@@ -1,0 +1,12 @@
+#
+# Simple random PyUVM test using random library.
+#
+
+import random
+
+import cocotb
+from cocotb.clock import Clock
+from cocotb.triggers import ClockCycles, RisingEdge, ReadOnly
+import pyuvm
+from pyuvm import uvm_test
+
