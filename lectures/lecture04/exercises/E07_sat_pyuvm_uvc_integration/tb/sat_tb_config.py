@@ -14,9 +14,9 @@ class sat_tb_config(uvm_object):
         # self.output_if = self.ssdt_cons_cfg.vif
 
         self.ssdt_prod_cfg.is_active = uvm_active_passive_enum.UVM_ACTIVE
-        self.ssdt_prod_cfg.drive_type = uvc_ssdt_type_enum.PRODUCER
+        self.ssdt_prod_cfg.driver_type = uvc_ssdt_type_enum.PRODUCER
         self.ssdt_cons_cfg.is_active = uvm_active_passive_enum.UVM_ACTIVE
-        self.ssdt_cons_cfg.drive_type = uvc_ssdt_type_enum.CONSUMER
+        self.ssdt_cons_cfg.driver_type = uvc_ssdt_type_enum.CONSUMER
 
 
 

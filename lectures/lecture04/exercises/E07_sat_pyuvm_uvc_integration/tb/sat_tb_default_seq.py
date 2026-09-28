@@ -49,30 +49,6 @@ class sat_tb_default_seq(uvm_sequence):
         # Finishes when the both tasks finishes
         await Combine(prod_task, cons_task)
 
-        cfg  = self.cfg
-        clk = cfg.input_if.clk
-        
-        await RisingEdge(clk)
-
-        cfg.input_if.data.value = data
-        cfg.input_if.valid.value = 1
-
-        await RisingEdge(clk)
-        await ReadOnly()
-
-        while cfg.output_if.valid.value != 1:
-            await RisingEdge(clk)
-            await ReadOnly()
-
-        assert cfg.output_if.valid.value == 1
-        assert cfg.output_if.data.value == data if data < THRESHOLD else THRESHOLD
-
-        await RisingEdge(clk)
-
-        cfg.input_if.data.value = 0
-        cfg.input_if.valid.value = 0
-
-        await RisingEdge(clk)
 
 
     async def body(self):

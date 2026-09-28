@@ -2,7 +2,7 @@ import cocotb
 import pyuvm
 from cocotb.clock import Clock
 from cocotb.triggers import RisingEdge
-from pyuvm import ConfigDB, uvm_test
+from pyuvm import ConfigDB, uvm_test, uvm_report_object
 
 from sat_tb_config import sat_tb_config
 from sat_tb_default_seq import sat_tb_default_seq
@@ -17,10 +17,13 @@ class sat_default_test(uvm_test):
     def build_phase(self):
         super().build_phase()
         self.dut = cocotb.top
+        self.input_if = ssdt_interface_wrapper(name="input_if")
+        self.output_if = ssdt_interface_wrapper(name="output_if")
+
 
         self.cfg = sat_tb_config.create(name="cfg")  # type: ignore
-        self.input_if = self.cfg.ssdt_prod_cfg.vif
-        self.output_if = self.cfg.ssdt_cons_cfg.vif
+        self.cfg.ssdt_prod_cfg.vif = self.input_if
+        self.cfg.ssdt_cons_cfg.vif = self.output_if
 
         self.sat_tb_env = sat_tb_env.create(name="sat_tb_env", parent=self)
 

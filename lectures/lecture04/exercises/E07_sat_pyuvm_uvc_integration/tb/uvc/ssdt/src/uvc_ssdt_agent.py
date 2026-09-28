@@ -54,7 +54,8 @@ class uvc_ssdt_agent(uvm_agent):
 
             # Instantiate Driver and pass handler to ConfigDB
             self.logger.debug("Creating Driver...")
-
+            self.logger.debug(self.cfg.driver_type)
+             
             if self.cfg.driver_type == uvc_ssdt_type_enum.PRODUCER:
                 self.driver = uvc_ssdt_producer_driver.create("driver", self)
             else:
