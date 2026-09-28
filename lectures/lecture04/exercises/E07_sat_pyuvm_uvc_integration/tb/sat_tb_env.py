@@ -32,7 +32,7 @@ class sat_tb_env(uvm_env):
         )
         ConfigDB().set(
             context=self,
-            inst_name="virtual_sequencer",  # NOTE: BUGFOUND: NOTE: This was "sat_tb_virt_sequencer" in segfault
+            inst_name="virtual_sequencer",
             field_name="cfg",
             value=self.cfg,
         )
@@ -52,3 +52,9 @@ class sat_tb_env(uvm_env):
             field_name="cfg",
             value=self.cfg.ssdt_cons_cfg,
         )
+
+
+    def connect_phase(self):
+        self.virtual_sequencer.ssdt_producer_sequencer = self.uvc_ssdt_producer.sequencer
+        self.virtual_sequencer.ssdt_consumer_sequencer = self.uvc_ssdt_consumer.sequencer
+
