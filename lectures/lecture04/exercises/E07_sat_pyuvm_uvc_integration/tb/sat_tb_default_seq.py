@@ -20,19 +20,40 @@ class sat_tb_default_seq(uvm_sequence):
         self.sequencer = None
         self.cfg = None
 
-    async def pre_body(self):  # NOTE: This is supposed to be async right? TAG
+        # NOTE: Unsure
+        self.producer_seq = None
+        self.consumer_seq = None
+
+    async def pre_body(self):
         await super().pre_body()
 
         self.cfg = self.sequencer.cfg
-        # NOTE: Video defines self.input_if = self.cfg.input_if. We define a variable in _transaction_helper that achieves the same thing
+
+        # NOTE: Unsure
+        self.producer_seq = uvc_ssdt_basic_seq.create(name="producer_seq")
+        self.consumer_seq = uvc_ssdt_basic_seq.create(name="consumer_seq")
 
     async def _transaction_helper(self, data):
+
+        seq_item = uvc_ssdt_seq_item.create("producer_item")
+        seq_item.data = data
+        self.producer_seq.seq_item = seq_item
+
+        # NOTE: Unsure if should be here or another place
+        prod_task = cocotb.start_soon(
+            self.producer_seq.start(
+                seqr=self.sequencer.ssdt_producer_sequencer))
+        cons_task = cocotb.start_soon(
+            self.consumer_seq.start(
+                seqr=self.sequencer.ssdt_consumer_sequencer))
+        # Finishes when the both tasks finishes
+        await Combine(prod_task, cons_task)
+
         cfg  = self.cfg
         clk = cfg.input_if.clk
         
-        await RisingEdge(clk)  # NOTE: video waits before as well
+        await RisingEdge(clk)
 
-        # NOTE: BUGFOUND: NOTE: if is a postfix. NOT a prefix. if_input before
         cfg.input_if.data.value = data
         cfg.input_if.valid.value = 1
 
