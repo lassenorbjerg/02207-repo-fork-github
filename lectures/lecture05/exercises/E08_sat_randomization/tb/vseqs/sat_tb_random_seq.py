@@ -31,7 +31,7 @@ class sat_tb_random_seq(sat_tb_base_seq):
 
         # Reuse the sequences with a new saturating transaction.
         seq_item = uvc_ssdt_seq_item.create("producer_item")
-        seq_item.data = 100
+        seq_item.randomize()
         self.producer_seq.seq_item = seq_item
 
 

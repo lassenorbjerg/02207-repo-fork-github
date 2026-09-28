@@ -1,0 +1,9 @@
+<testsuites name="results">
+  <testsuite name="all" package="all">
+    <property name="random_seed" value="1790590282" />
+    <testcase name="sat_tb_default_test" classname="tests.sat_tb_default_test" file="/home/Lasse-docker/02207-repo-fork-github/.venv/lib/python3.12/site-packages/pyuvm/extension_classes.py" lineno="9" time="0.0875406265258789" sim_time_ns="8.0" ratio_time="91.38614055538004" />
+    <testcase name="sat_tb_random_test" classname="tests.sat_tb_random_test" file="/home/Lasse-docker/02207-repo-fork-github/.venv/lib/python3.12/site-packages/pyuvm/extension_classes.py" lineno="7" time="0.003262042999267578" sim_time_ns="0.0" ratio_time="0.0">
+      <failure error_type="TypeError" error_msg="sat_tb_base_seq.__init__() takes from 1 to 2 positional arguments but 3 were given" />
+    </testcase>
+  </testsuite>
+</testsuites>
