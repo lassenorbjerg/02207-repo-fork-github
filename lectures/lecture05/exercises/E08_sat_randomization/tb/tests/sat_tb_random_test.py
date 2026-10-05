@@ -1,14 +1,15 @@
 import pyuvm
 from pyuvm import uvm_factory
 
+from sat_tb_base_test import sat_tb_base_test
 from sat_tb_base_seq import sat_tb_base_seq
 from vseqs.sat_tb_random_seq import sat_tb_random_seq
 
 @pyuvm.test()
-class sat_tb_random_test(sat_tb_base_seq):
+class sat_tb_random_test(sat_tb_base_test):
     
     def __init__(self, name="sat_tb_default_test", parent=None):
-        super().__init__(name, parent)
+        super().__init__(name,parent)
 
     def start_of_simulation_phase(self):
         super().start_of_simulation_phase()
