@@ -6,6 +6,7 @@ PyBoolector==3.2.4.*
 cocotb-coverage == 1.1.0
 constrainedrandom == 1.1.2
 pytest == 8.1
+matplotlib==3.10.3
 
 # Visualise coverage
 pyucis-viewer==0.0.4.*
