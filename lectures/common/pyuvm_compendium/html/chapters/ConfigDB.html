@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ConfigDB &mdash; 02207 PyUVM Compendium 1.0.3.0 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/drawio.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="Instance Hierarchy" href="InstanceHierarchy.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> 02207 PyUVM Compendium
+          </a>
+              <div class="version">
+                1.0.3.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="InstanceHierarchy.html">Instance Hierarchy</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="InstanceHierarchy.html#components-parents-and-children">Components, parents, and children</a></li>
+<li class="toctree-l2"><a class="reference internal" href="InstanceHierarchy.html#instance-paths">Instance paths</a></li>
+<li class="toctree-l2"><a class="reference internal" href="InstanceHierarchy.html#wildcard-path-patterns">Wildcard path patterns</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">ConfigDB</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#context-and-instance-paths">Context and instance paths</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#configdb-set">ConfigDB set()</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#configdb-get">ConfigDB get()</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#why-use-the-configdb-instead-of-direct-assignments">Why use the ConfigDB instead of direct assignments?</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">02207 PyUVM Compendium</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>ConfigDB</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/chapters/ConfigDB.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="configdb">
+<h1>ConfigDB<a class="headerlink" href="#configdb" title="Permalink to this heading"></a></h1>
+<p>The configuration database, <code class="docutils literal notranslate"><span class="pre">ConfigDB</span></code>, is a shared, path-based database.
+Components can store a value using <code class="docutils literal notranslate"><span class="pre">set()</span></code>, and retrieve it using <code class="docutils literal notranslate"><span class="pre">get()</span></code>.
+The value is identified by a field name, similar to a dictionary, and an
+instance path. A key value pair is only ‘visible’ to a single (or multiple)
+components.</p>
+<p>In pyuvm the <code class="docutils literal notranslate"><span class="pre">ConfigDB</span></code> is a <a class="reference external" href="https://en.wikipedia.org/wiki/Singleton_pattern">singleton</a> object. <code class="docutils literal notranslate"><span class="pre">ConfigDB()</span></code>
+always accesses the same database object.</p>
+<section id="context-and-instance-paths">
+<span id="context-and-instance-path"></span><h2>Context and instance paths<a class="headerlink" href="#context-and-instance-paths" title="Permalink to this heading"></a></h2>
+<p>Both <code class="docutils literal notranslate"><span class="pre">set()</span></code> and <code class="docutils literal notranslate"><span class="pre">get()</span></code> take two arguments to resolve the effective lookup path.</p>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">context</span></code>, an object of type <code class="docutils literal notranslate"><span class="pre">uvm_component</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">inst_name</span></code>, a string</p></li>
+</ol>
+<p>The effective lookup path is resolved from the full instance path of
+<code class="docutils literal notranslate"><span class="pre">context</span></code> with the <code class="docutils literal notranslate"><span class="pre">inst_name</span></code> appended. So for a <code class="docutils literal notranslate"><span class="pre">ConfigDB</span></code> call with</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">context</span></code>: <code class="docutils literal notranslate"><span class="pre">sat_default_test</span></code> (full instance path: <code class="docutils literal notranslate"><span class="pre">&quot;uvm_test_top&quot;</span></code>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">inst_name</span></code>: <code class="docutils literal notranslate"><span class="pre">&quot;env&quot;</span></code></p></li>
+</ul>
+<p>Produces <code class="docutils literal notranslate"><span class="pre">&quot;uvm_test_top.env&quot;</span></code> as the effective lookup path.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">context</span></code> should almost always be the current component referenced by
+<code class="docutils literal notranslate"><span class="pre">self</span></code>. Then, from the  perspective of the <code class="docutils literal notranslate"><span class="pre">context</span></code>, <code class="docutils literal notranslate"><span class="pre">inst_name</span></code> selects
+the child or descendant to configure. From the receiving component’s
+perspective (again passing itself as <code class="docutils literal notranslate"><span class="pre">context</span></code>) using <code class="docutils literal notranslate"><span class="pre">inst_name=&quot;&quot;</span></code> selects
+its own full instance path. For example, if <code class="docutils literal notranslate"><span class="pre">env</span></code> is a child of
+<code class="docutils literal notranslate"><span class="pre">uvm_test_top</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># In the test (uvm_test_top):</span>
+<span class="n">ConfigDB</span><span class="p">()</span><span class="o">.</span><span class="n">set</span><span class="p">(</span>
+    <span class="n">context</span>    <span class="o">=</span> <span class="bp">self</span><span class="p">,</span>
+    <span class="n">inst_path</span>  <span class="o">=</span> <span class="s2">&quot;env&quot;</span><span class="p">,</span>
+    <span class="n">field_name</span> <span class="o">=</span> <span class="s2">&quot;cfg&quot;</span><span class="p">,</span>
+    <span class="n">value</span>      <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cfg</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># In the environment (uvm_test_top.env):</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">cfg</span> <span class="o">=</span> <span class="n">ConfigDB</span><span class="p">()</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+    <span class="n">context</span>    <span class="o">=</span> <span class="bp">self</span><span class="p">,</span>
+    <span class="n">inst_path</span>  <span class="o">=</span>  <span class="s2">&quot;&quot;</span><span class="p">,</span>
+    <span class="n">field_name</span> <span class="o">=</span><span class="s2">&quot;cfg&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>Both calls resolve to <code class="docutils literal notranslate"><span class="pre">uvm_test_top.env</span></code>, so the environment retrieves
+the config. Using itself as context means that the environment does not need
+to specify its full path or know the name of the test above it.</p>
+<p><code class="docutils literal notranslate"><span class="pre">set()</span></code> also accepts wildcards in the <code class="docutils literal notranslate"><span class="pre">inst_name</span></code> see
+<a class="reference internal" href="InstanceHierarchy.html#wildcard-path-patterns"><span class="std std-ref">Wildcard path patterns</span></a>.</p>
+</section>
+<section id="configdb-set">
+<h2>ConfigDB set()<a class="headerlink" href="#configdb-set" title="Permalink to this heading"></a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">set</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="n">inst_name</span><span class="p">,</span> <span class="n">field_name</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Stores a value under <code class="docutils literal notranslate"><span class="pre">field_name</span></code> at the path or path
+pattern formed from <code class="docutils literal notranslate"><span class="pre">context</span></code> and <code class="docutils literal notranslate"><span class="pre">inst_name</span></code>. The <code class="docutils literal notranslate"><span class="pre">inst_name</span></code> is
+relative to the context component’s full instance path. With
+<code class="docutils literal notranslate"><span class="pre">context=None</span></code>, it is a full path or path pattern from the root.</p>
+<p><strong>Arguments:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">context</span></code>: A <code class="docutils literal notranslate"><span class="pre">uvm_component</span></code> used as the base for the path, or <code class="docutils literal notranslate"><span class="pre">None</span></code>
+to use the root context.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">inst_name</span></code>: An instance path relative to <code class="docutils literal notranslate"><span class="pre">context</span></code>. Use <code class="docutils literal notranslate"><span class="pre">&quot;&quot;</span></code> for
+the context component itself. Wildcards are allowed.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">field_name</span></code>: The key at which to store the value.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">value</span></code>: The value to store.</p></li>
+<li><p>Returns: <code class="docutils literal notranslate"><span class="pre">None</span></code>.</p></li>
+</ul>
+</section>
+<section id="configdb-get">
+<h2>ConfigDB get()<a class="headerlink" href="#configdb-get" title="Permalink to this heading"></a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="n">inst_name</span><span class="p">,</span> <span class="n">field_name</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="n">default_get</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Retrieves a value by matching the concrete path formed from
+<code class="docutils literal notranslate"><span class="pre">context</span></code> and <code class="docutils literal notranslate"><span class="pre">inst_name</span></code> against the stored paths and path patterns,
+then looking up <code class="docutils literal notranslate"><span class="pre">field_name</span></code>. The <code class="docutils literal notranslate"><span class="pre">inst_name</span></code> is relative to the context
+component’s full instance path. With <code class="docutils literal notranslate"><span class="pre">context=None</span></code>, it is a full path
+from the root.</p>
+<p><strong>Arguments:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">context</span></code>: A <code class="docutils literal notranslate"><span class="pre">uvm_component</span></code> used as the base for the path, or <code class="docutils literal notranslate"><span class="pre">None</span></code>
+to use the root context.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">inst_name</span></code>: A concrete instance path relative to <code class="docutils literal notranslate"><span class="pre">context</span></code>, without
+wildcards.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">field_name</span></code>: The key for the value to retrieve.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">default</span></code>: The value to return if no matching configuration value is
+found.</p></li>
+<li><p>Returns: The stored value, or the supplied <code class="docutils literal notranslate"><span class="pre">default</span></code> if no matching
+configuration value is found.</p></li>
+</ul>
+</section>
+<section id="why-use-the-configdb-instead-of-direct-assignments">
+<h2>Why use the ConfigDB instead of direct assignments?<a class="headerlink" href="#why-use-the-configdb-instead-of-direct-assignments" title="Permalink to this heading"></a></h2>
+<p>A direct assignment such as <code class="docutils literal notranslate"><span class="pre">self.env.driver.timeout_cycles</span> <span class="pre">=</span> <span class="pre">100</span></code>
+requires the test to have access to the driver object and to know which
+attribute to change. The driver must also exist before the assignment can
+be made. This couples the test to the Python object structure of the
+environment.</p>
+<p>With the <code class="docutils literal notranslate"><span class="pre">ConfigDB</span></code>, the test specifies a value and the
+instance path where it should be available. The receiving component
+retrieves the value under an agreed field name and assigns its own
+attributes. The value can be stored before the receiving component exists,
+because the database stores paths rather than looking up component objects
+when <code class="docutils literal notranslate"><span class="pre">set()</span></code> is called. This is useful during <code class="docutils literal notranslate"><span class="pre">build_phase()</span></code>, when
+parents configure components that will be created further down the hierarchy.</p>
+<p>The receiving component does not need to know the name of the test or how
+to navigate the Python references above it. It can retrieve configuration
+relative to its own instance path, making it easier to reuse in another
+environment. The test and component must still agree on the field name,
+the meaning of the value, and a matching instance path.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="InstanceHierarchy.html" class="btn btn-neutral float-left" title="Instance Hierarchy" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, SyoSil ApS.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

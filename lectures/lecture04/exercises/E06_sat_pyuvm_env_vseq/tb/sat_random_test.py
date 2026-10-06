@@ -1,7 +1,3 @@
-#
-# Simple PyUVM test using interface wrappers.
-#
-
 import pyuvm
 from pyuvm import uvm_factory
 

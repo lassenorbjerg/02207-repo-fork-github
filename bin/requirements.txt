@@ -8,7 +8,9 @@ constrainedrandom == 1.1.2
 pytest == 8.1
 
 # Visualise coverage
+pyucis==0.1.5
 pyucis-viewer==0.0.4.*
+matplotlib==3.10.3
 
 # randShow, PyUVMTBViewer requirements
 PyQt5>=5.15.10

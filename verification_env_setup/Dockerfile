@@ -107,9 +107,9 @@ RUN apt-get -y update && \
 	&& \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
-ENV USERNAME=${USERNAME?student}
-ENV USER_UID=${USER_UID?1000}
-ENV USER_GID=${USER_GID?1000}
+ENV USERNAME=${USERNAME}
+ENV USER_UID=${USER_UID}
+ENV USER_GID=${USER_GID}
 
 ENV PYTHON_H_HOME='/usr/include/python3.10'
 ENV PYTHONPATH='/usr/lib/python3'
@@ -128,10 +128,6 @@ ENV PS1='\e[92m\u\e[0m@\e[94m\h\e[0m:\e[35m\w\e[0m# '
 # Set Working directory
 WORKDIR /home/${USERNAME}
 
-# copy testing script, release, and result checking script into docker, only relevant for release testing
-# copy-release
-# copy-test-script
-# copy-check-results
 
 RUN echo "alias python='/usr/bin/python3'" >> /home/${USERNAME}/.bashrc
 
