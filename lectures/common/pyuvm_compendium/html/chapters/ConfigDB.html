@@ -1,26 +1,26 @@
+
+
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="../">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ConfigDB &mdash; 02207 PyUVM Compendium 1.0.3.0 documentation</title>
-      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/drawio.css" type="text/css" />
-  <!--[if lt IE 9]>
-    <script src="../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
+  <title>ConfigDB &mdash; 02207 PyUVM Compendium 1.1.3.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=92fd9be5" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../_static/drawio.css" />
+
   
-        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-        <script src="../_static/jquery.js"></script>
-        <script src="../_static/underscore.js"></script>
-        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script src="../_static/doctools.js"></script>
-        <script src="../_static/sphinx_highlight.js"></script>
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=45b75c2d"></script>
+      <script src="../_static/doctools.js?v=9a2dae69"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Factory" href="Factory.html" />
     <link rel="prev" title="Instance Hierarchy" href="InstanceHierarchy.html" /> 
 </head>
 
@@ -29,14 +29,15 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="../index.html" class="icon icon-home"> 02207 PyUVM Compendium
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            02207 PyUVM Compendium
           </a>
-              <div class="version">
-                1.0.3.0
-              </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -57,6 +58,25 @@
 <li class="toctree-l2"><a class="reference internal" href="#why-use-the-configdb-instead-of-direct-assignments">Why use the ConfigDB instead of direct assignments?</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="Factory.html">Factory</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Factory.html#type-registration">Type registration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Factory.html#creating-objects-and-components">Creating objects and components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Factory.html#overrides">Overrides</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Factory.html#type-overrides">Type overrides</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Factory.html#instance-overrides">Instance overrides</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="TLMPorts.html">TLM Analysis Ports and Exports</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="TLMPorts.html#analysis-port-and-export-in-pyuvm">Analysis Port and Export in PyUVM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="TLMPorts.html#classes-with-build-in-analysis-ports-exports">Classes with Build-In Analysis Ports/Exports</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="TLMPorts.html#uvm-subscriber">UVM Subscriber</a></li>
+<li class="toctree-l3"><a class="reference internal" href="TLMPorts.html#tlm-analysis-fifo">TLM analysis FIFO</a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 
         </div>
@@ -72,8 +92,8 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>ConfigDB</li>
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">ConfigDB</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../_sources/chapters/ConfigDB.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -84,7 +104,7 @@
            <div itemprop="articleBody">
              
   <section id="configdb">
-<h1>ConfigDB<a class="headerlink" href="#configdb" title="Permalink to this heading"></a></h1>
+<h1>ConfigDB<a class="headerlink" href="#configdb" title="Link to this heading"></a></h1>
 <p>The configuration database, <code class="docutils literal notranslate"><span class="pre">ConfigDB</span></code>, is a shared, path-based database.
 Components can store a value using <code class="docutils literal notranslate"><span class="pre">set()</span></code>, and retrieve it using <code class="docutils literal notranslate"><span class="pre">get()</span></code>.
 The value is identified by a field name, similar to a dictionary, and an
@@ -93,7 +113,7 @@ components.</p>
 <p>In pyuvm the <code class="docutils literal notranslate"><span class="pre">ConfigDB</span></code> is a <a class="reference external" href="https://en.wikipedia.org/wiki/Singleton_pattern">singleton</a> object. <code class="docutils literal notranslate"><span class="pre">ConfigDB()</span></code>
 always accesses the same database object.</p>
 <section id="context-and-instance-paths">
-<span id="context-and-instance-path"></span><h2>Context and instance paths<a class="headerlink" href="#context-and-instance-paths" title="Permalink to this heading"></a></h2>
+<span id="context-and-instance-path"></span><h2>Context and instance paths<a class="headerlink" href="#context-and-instance-paths" title="Link to this heading"></a></h2>
 <p>Both <code class="docutils literal notranslate"><span class="pre">set()</span></code> and <code class="docutils literal notranslate"><span class="pre">get()</span></code> take two arguments to resolve the effective lookup path.</p>
 <ol class="arabic simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">context</span></code>, an object of type <code class="docutils literal notranslate"><span class="pre">uvm_component</span></code></p></li>
@@ -115,7 +135,7 @@ its own full instance path. For example, if <code class="docutils literal notran
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># In the test (uvm_test_top):</span>
 <span class="n">ConfigDB</span><span class="p">()</span><span class="o">.</span><span class="n">set</span><span class="p">(</span>
     <span class="n">context</span>    <span class="o">=</span> <span class="bp">self</span><span class="p">,</span>
-    <span class="n">inst_path</span>  <span class="o">=</span> <span class="s2">&quot;env&quot;</span><span class="p">,</span>
+    <span class="n">inst_name</span>  <span class="o">=</span> <span class="s2">&quot;env&quot;</span><span class="p">,</span>
     <span class="n">field_name</span> <span class="o">=</span> <span class="s2">&quot;cfg&quot;</span><span class="p">,</span>
     <span class="n">value</span>      <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cfg</span><span class="p">,</span>
 <span class="p">)</span>
@@ -123,7 +143,7 @@ its own full instance path. For example, if <code class="docutils literal notran
 <span class="c1"># In the environment (uvm_test_top.env):</span>
 <span class="bp">self</span><span class="o">.</span><span class="n">cfg</span> <span class="o">=</span> <span class="n">ConfigDB</span><span class="p">()</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
     <span class="n">context</span>    <span class="o">=</span> <span class="bp">self</span><span class="p">,</span>
-    <span class="n">inst_path</span>  <span class="o">=</span>  <span class="s2">&quot;&quot;</span><span class="p">,</span>
+    <span class="n">inst_name</span>  <span class="o">=</span>  <span class="s2">&quot;&quot;</span><span class="p">,</span>
     <span class="n">field_name</span> <span class="o">=</span><span class="s2">&quot;cfg&quot;</span><span class="p">,</span>
 <span class="p">)</span>
 </pre></div>
@@ -135,7 +155,7 @@ to specify its full path or know the name of the test above it.</p>
 <a class="reference internal" href="InstanceHierarchy.html#wildcard-path-patterns"><span class="std std-ref">Wildcard path patterns</span></a>.</p>
 </section>
 <section id="configdb-set">
-<h2>ConfigDB set()<a class="headerlink" href="#configdb-set" title="Permalink to this heading"></a></h2>
+<h2>ConfigDB set()<a class="headerlink" href="#configdb-set" title="Link to this heading"></a></h2>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">set</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="n">inst_name</span><span class="p">,</span> <span class="n">field_name</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -155,7 +175,7 @@ the context component itself. Wildcards are allowed.</p></li>
 </ul>
 </section>
 <section id="configdb-get">
-<h2>ConfigDB get()<a class="headerlink" href="#configdb-get" title="Permalink to this heading"></a></h2>
+<h2>ConfigDB get()<a class="headerlink" href="#configdb-get" title="Link to this heading"></a></h2>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="n">inst_name</span><span class="p">,</span> <span class="n">field_name</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="n">default_get</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -178,7 +198,7 @@ configuration value is found.</p></li>
 </ul>
 </section>
 <section id="why-use-the-configdb-instead-of-direct-assignments">
-<h2>Why use the ConfigDB instead of direct assignments?<a class="headerlink" href="#why-use-the-configdb-instead-of-direct-assignments" title="Permalink to this heading"></a></h2>
+<h2>Why use the ConfigDB instead of direct assignments?<a class="headerlink" href="#why-use-the-configdb-instead-of-direct-assignments" title="Link to this heading"></a></h2>
 <p>A direct assignment such as <code class="docutils literal notranslate"><span class="pre">self.env.driver.timeout_cycles</span> <span class="pre">=</span> <span class="pre">100</span></code>
 requires the test to have access to the driver object and to know which
 attribute to change. The driver must also exist before the assignment can
@@ -204,6 +224,7 @@ the meaning of the value, and a matching instance path.</p>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="InstanceHierarchy.html" class="btn btn-neutral float-left" title="Instance Hierarchy" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="Factory.html" class="btn btn-neutral float-right" title="Factory" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

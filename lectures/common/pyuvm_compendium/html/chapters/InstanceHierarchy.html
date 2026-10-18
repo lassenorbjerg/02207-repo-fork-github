@@ -1,23 +1,22 @@
+
+
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="../">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Instance Hierarchy &mdash; 02207 PyUVM Compendium 1.0.3.0 documentation</title>
-      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/drawio.css" type="text/css" />
-  <!--[if lt IE 9]>
-    <script src="../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
+  <title>Instance Hierarchy &mdash; 02207 PyUVM Compendium 1.1.3.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=92fd9be5" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../_static/drawio.css" />
+
   
-        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-        <script src="../_static/jquery.js"></script>
-        <script src="../_static/underscore.js"></script>
-        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script src="../_static/doctools.js"></script>
-        <script src="../_static/sphinx_highlight.js"></script>
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=45b75c2d"></script>
+      <script src="../_static/doctools.js?v=9a2dae69"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -30,14 +29,15 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="../index.html" class="icon icon-home"> 02207 PyUVM Compendium
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            02207 PyUVM Compendium
           </a>
-              <div class="version">
-                1.0.3.0
-              </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -58,6 +58,25 @@
 <li class="toctree-l2"><a class="reference internal" href="ConfigDB.html#why-use-the-configdb-instead-of-direct-assignments">Why use the ConfigDB instead of direct assignments?</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="Factory.html">Factory</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Factory.html#type-registration">Type registration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Factory.html#creating-objects-and-components">Creating objects and components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Factory.html#overrides">Overrides</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Factory.html#type-overrides">Type overrides</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Factory.html#instance-overrides">Instance overrides</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="TLMPorts.html">TLM Analysis Ports and Exports</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="TLMPorts.html#analysis-port-and-export-in-pyuvm">Analysis Port and Export in PyUVM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="TLMPorts.html#classes-with-build-in-analysis-ports-exports">Classes with Build-In Analysis Ports/Exports</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="TLMPorts.html#uvm-subscriber">UVM Subscriber</a></li>
+<li class="toctree-l3"><a class="reference internal" href="TLMPorts.html#tlm-analysis-fifo">TLM analysis FIFO</a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 
         </div>
@@ -73,8 +92,8 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>Instance Hierarchy</li>
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Instance Hierarchy</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../_sources/chapters/InstanceHierarchy.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -85,13 +104,13 @@
            <div itemprop="articleBody">
              
   <section id="instance-hierarchy">
-<h1>Instance Hierarchy<a class="headerlink" href="#instance-hierarchy" title="Permalink to this heading"></a></h1>
+<h1>Instance Hierarchy<a class="headerlink" href="#instance-hierarchy" title="Link to this heading"></a></h1>
 <p>The <code class="docutils literal notranslate"><span class="pre">uvm_components</span></code> of a pyuvm testbench form an instance hierarchy. It
 describes the parent-child relationships between all <code class="docutils literal notranslate"><span class="pre">uvm_components</span></code> in a
 testbench.</p>
 <p>Objects derived from <code class="docutils literal notranslate"><span class="pre">uvm_object</span></code> are not part of the instance hierarchy.</p>
 <section id="components-parents-and-children">
-<h2>Components, parents, and children<a class="headerlink" href="#components-parents-and-children" title="Permalink to this heading"></a></h2>
+<h2>Components, parents, and children<a class="headerlink" href="#components-parents-and-children" title="Link to this heading"></a></h2>
 <p>When a <code class="docutils literal notranslate"><span class="pre">uvm_component</span></code> is created using the factory with the <code class="docutils literal notranslate"><span class="pre">create()</span></code>
 class method, the <code class="docutils literal notranslate"><span class="pre">name</span></code> and <code class="docutils literal notranslate"><span class="pre">parent</span></code> of the component are set.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">default_test</span><span class="p">(</span><span class="n">uvm_test</span><span class="p">):</span>
@@ -110,18 +129,18 @@ and is always named <code class="docutils literal notranslate"><span class="pre"
 <figure class="align-center" id="id4">
 <a class="drawio reference internal image-reference" href="../_images/instance_hierarchy_parent_child.svg"><img alt="../_images/instance_hierarchy_parent_child.svg" class="drawio" src="../_images/instance_hierarchy_parent_child.svg" width="30%" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 1 </span><span class="caption-text">The <code class="docutils literal notranslate"><span class="pre">env</span></code> component is a child of <code class="docutils literal notranslate"><span class="pre">uvm_test_top</span></code>.</span><a class="headerlink" href="#id4" title="Permalink to this image"></a></p>
+<p><span class="caption-number">Fig. 1 </span><span class="caption-text">The <code class="docutils literal notranslate"><span class="pre">env</span></code> component is a child of <code class="docutils literal notranslate"><span class="pre">uvm_test_top</span></code>.</span><a class="headerlink" href="#id4" title="Link to this image"></a></p>
 </figcaption>
 </figure>
 </section>
 <section id="instance-paths">
-<h2>Instance paths<a class="headerlink" href="#instance-paths" title="Permalink to this heading"></a></h2>
+<h2>Instance paths<a class="headerlink" href="#instance-paths" title="Link to this heading"></a></h2>
 <p>An instance path is the dot-separated sequence of instance names from the top
 component (<code class="docutils literal notranslate"><span class="pre">uvm_test_top</span></code>) to a particular component.</p>
 <figure class="align-center" id="id5">
 <a class="drawio reference internal image-reference" href="../_images/instance_hierarchy_instance_paths.svg"><img alt="../_images/instance_hierarchy_instance_paths.svg" class="drawio" src="../_images/instance_hierarchy_instance_paths.svg" width="50%" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 2 </span><span class="caption-text">Deeper nested instance hierarchy with two <code class="docutils literal notranslate"><span class="pre">uvm_agents</span></code>.</span><a class="headerlink" href="#id5" title="Permalink to this image"></a></p>
+<p><span class="caption-number">Fig. 2 </span><span class="caption-text">Deeper nested instance hierarchy with two <code class="docutils literal notranslate"><span class="pre">uvm_agents</span></code>.</span><a class="headerlink" href="#id5" title="Link to this image"></a></p>
 </figcaption>
 </figure>
 <p>The example from above creates this hierarchy:</p>
@@ -134,10 +153,6 @@ component (<code class="docutils literal notranslate"><span class="pre">uvm_test
 </div>
 <p>The corresponding full instance paths are:</p>
 <table class="docutils align-default">
-<colgroup>
-<col style="width: 42%" />
-<col style="width: 58%" />
-</colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Component</p></th>
 <th class="head"><p>Full instance path</p></th>
@@ -150,14 +165,11 @@ component (<code class="docutils literal notranslate"><span class="pre">uvm_test
 <tr class="row-odd"><td><p>environment</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">uvm_test_top.env</span></code></p></td>
 </tr>
-<tr class="row-even"><td><p>input agent</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">uvm_test_top.env.input_agent</span></code></p></td>
+<tr class="row-even"><td><p>producer agent</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">uvm_test_top.env.producer_agent</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><p>input monitor</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">uvm_test_top.env.input_agent.monitor</span></code></p></td>
-</tr>
-<tr class="row-even"><td><p>output monitor</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">uvm_test_top.env.output_agent.monitor</span></code></p></td>
+<tr class="row-odd"><td><p>consumer agent</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">uvm_test_top.env.consumer_agent</span></code></p></td>
 </tr>
 </tbody>
 </table>
@@ -169,18 +181,18 @@ available.</p>
 </ul>
 </section>
 <section id="wildcard-path-patterns">
-<span id="id1"></span><h2>Wildcard path patterns<a class="headerlink" href="#wildcard-path-patterns" title="Permalink to this heading"></a></h2>
+<span id="id1"></span><h2>Wildcard path patterns<a class="headerlink" href="#wildcard-path-patterns" title="Link to this heading"></a></h2>
 <p>Path-based methods such as <code class="docutils literal notranslate"><span class="pre">ConfigDB</span></code>’s <code class="docutils literal notranslate"><span class="pre">set()</span></code> and <code class="docutils literal notranslate"><span class="pre">uvm_factory</span></code>’s
 <code class="docutils literal notranslate"><span class="pre">override_instance_by_&lt;type/name&gt;</span></code> can match a concrete instance path against
-a wildcard pattern <a class="footnote-reference brackets" href="#id3" id="id2">1</a>. This addresses a region of the hierarchy without requiring
+a wildcard pattern <a class="footnote-reference brackets" href="#id3" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>. This addresses a region of the hierarchy without requiring
 a reference to every component in that region. Most importantly this allows the
 use of <code class="docutils literal notranslate"><span class="pre">*</span></code> which matches against everything. This allows a instance override
 for example to target all components within the environment:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># In the env: replace all SequenceItem classes with NewSequenceItem</span>
 <span class="n">uvm_factory</span><span class="p">()</span><span class="o">.</span><span class="n">set_inst_override_by_type</span><span class="p">(</span>
-    <span class="n">original_type_name</span> <span class="o">=</span> <span class="n">SequenceItem</span><span class="p">,</span>
-    <span class="n">override_type_name</span> <span class="o">=</span> <span class="n">NewSequenceItem</span><span class="p">,</span>
-    <span class="n">full_inst_path</span>     <span class="o">=</span> <span class="s2">&quot;uvm_test_top.env.*&quot;</span><span class="p">,</span>
+    <span class="n">original_type</span>  <span class="o">=</span> <span class="n">SequenceItem</span><span class="p">,</span>
+    <span class="n">override_type</span>  <span class="o">=</span> <span class="n">NewSequenceItem</span><span class="p">,</span>
+    <span class="n">full_inst_path</span> <span class="o">=</span> <span class="s2">&quot;uvm_test_top.env.*&quot;</span><span class="p">,</span>
 <span class="p">)</span>
 </pre></div>
 </div>
@@ -194,11 +206,12 @@ for example to target all components within the environment:</p>
 <span class="p">)</span>
 </pre></div>
 </div>
-<dl class="footnote brackets">
-<dt class="label" id="id3"><span class="brackets"><a class="fn-backref" href="#id2">1</a></span></dt>
-<dd><p>Pyuvm specifically uses <a class="reference external" href="https://docs.python.org/3.12/library/fnmatch.html">fnmatch</a> for matching wildcard patterns.</p>
-</dd>
-</dl>
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="id3" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">1</a><span class="fn-bracket">]</span></span>
+<p>Pyuvm specifically uses <a class="reference external" href="https://docs.python.org/3.12/library/fnmatch.html">fnmatch</a> for matching wildcard patterns.</p>
+</aside>
+</aside>
 </section>
 </section>
 

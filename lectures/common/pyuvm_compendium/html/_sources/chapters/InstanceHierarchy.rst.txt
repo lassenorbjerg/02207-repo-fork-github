@@ -63,9 +63,8 @@ Component                         Full instance path
 ================================  =============================================
 test                              ``uvm_test_top``
 environment                       ``uvm_test_top.env``
-input agent                       ``uvm_test_top.env.input_agent``
-input monitor                     ``uvm_test_top.env.input_agent.monitor``
-output monitor                    ``uvm_test_top.env.output_agent.monitor``
+producer agent                    ``uvm_test_top.env.producer_agent``
+consumer agent                    ``uvm_test_top.env.consumer_agent``
 ================================  =============================================
 
 To get the name or full instance path of a component the following methods are
@@ -91,9 +90,9 @@ for example to target all components within the environment:
 
    # In the env: replace all SequenceItem classes with NewSequenceItem
    uvm_factory().set_inst_override_by_type(
-       original_type_name = SequenceItem,
-       override_type_name = NewSequenceItem,
-       full_inst_path     = "uvm_test_top.env.*",
+       original_type  = SequenceItem,
+       override_type  = NewSequenceItem,
+       full_inst_path = "uvm_test_top.env.*",
    )
 
 

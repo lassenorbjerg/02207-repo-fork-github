@@ -43,7 +43,7 @@ its own full instance path. For example, if ``env`` is a child of
    # In the test (uvm_test_top):
    ConfigDB().set(
        context    = self,
-       inst_path  = "env",
+       inst_name  = "env",
        field_name = "cfg",
        value      = self.cfg,
    )
@@ -51,7 +51,7 @@ its own full instance path. For example, if ``env`` is a child of
    # In the environment (uvm_test_top.env):
    self.cfg = ConfigDB().get(
        context    = self,
-       inst_path  =  "",
+       inst_name  =  "",
        field_name ="cfg",
    )
 

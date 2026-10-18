@@ -10,3 +10,5 @@ PyUVM Compendium for 02207 Verification of Digital Systems
 
    chapters/InstanceHierarchy
    chapters/ConfigDB
+   chapters/Factory
+   chapters/TLMPorts
