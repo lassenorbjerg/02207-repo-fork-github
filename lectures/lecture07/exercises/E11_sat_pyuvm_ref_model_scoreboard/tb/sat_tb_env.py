@@ -27,6 +27,8 @@ class sat_tb_env(uvm_env):
         self.uvc_ssdt_producer = None
         self.uvc_ssdt_consumer = None
 
+        self.scoreboard = None
+
     def build_phase(self):
         self.logger.debug("Start build_phase() -> SAT environment")
         super().build_phase()
@@ -91,7 +93,11 @@ class sat_tb_env(uvm_env):
         )
 
         self.logger.debug( f"\nAgent < {self.uvc_ssdt_consumer} > created with the following configs {self.uvc_ssdt_consumer.cfg}\n")
+
+        self.scoreboard = sat_tb_scoreboard.create(name="scoreboard",parent=self)
+        
         self.logger.debug("End build_phase() -> SAT environment")
+
 
     def connect_phase(self):
         self.logger.debug("Start connect_phase() -> SAT environment")
@@ -108,5 +114,7 @@ class sat_tb_env(uvm_env):
         # Connect producer agent analysis port with ref. model
         self.uvc_ssdt_producer.analysis_port.connect(self.ref_model.analysis_export)
 
+        self.uvc_ssdt_consumer.analysis_port.connect(self.scoreboard.uvc_ssdt_consumer_fifo.analysis_export)
+        self.ref_model.uvm_analysis_port.connect(self.scoreboard.ref_model_fifo.analysis_export)
 
         self.logger.debug("End connect_phase() -> SAT environment")

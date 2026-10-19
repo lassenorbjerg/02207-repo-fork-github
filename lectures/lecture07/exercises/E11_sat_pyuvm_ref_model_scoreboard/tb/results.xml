@@ -1,0 +1,14 @@
+<testsuites name="results">
+  <testsuite name="all" package="all">
+    <property name="random_seed" value="1792404178" />
+    <testcase name="sat_tb_around_threshold_test" classname="tests.sat_tb_around_threshold_test" file="/home/Lasse-docker/02207-repo-fork-github/.venv/lib/python3.12/site-packages/pyuvm/extension_classes.py" lineno="10" time="0.465317964553833" sim_time_ns="40.0" ratio_time="85.96272451753228">
+      <failure error_type="AssertionError" error_msg="assert 1 == 0&#10; +  where 1 = uvm_test_top.sat_tb_env.scoreboard.failure" />
+    </testcase>
+    <testcase name="sat_tb_default_test" classname="tests.sat_tb_default_test" file="/home/Lasse-docker/02207-repo-fork-github/.venv/lib/python3.12/site-packages/pyuvm/extension_classes.py" lineno="9" time="0.11259007453918457" sim_time_ns="10.0" ratio_time="88.81777582019198" />
+    <testcase name="sat_tb_less_than_threshold_test" classname="tests.sat_tb_less_than_threshold_test" file="/home/Lasse-docker/02207-repo-fork-github/.venv/lib/python3.12/site-packages/pyuvm/extension_classes.py" lineno="10" time="0.21664929389953613" sim_time_ns="41.99999999999999" ratio_time="193.86169806524313" />
+    <testcase name="sat_tb_over_threshold_test" classname="tests.sat_tb_over_threshold_test" file="/home/Lasse-docker/02207-repo-fork-github/.venv/lib/python3.12/site-packages/pyuvm/extension_classes.py" lineno="10" time="0.21744465827941895" sim_time_ns="41.999999999999986" ratio_time="193.15259492845067" />
+    <testcase name="sat_tb_random_test" classname="tests.sat_tb_random_test" file="/home/Lasse-docker/02207-repo-fork-github/.venv/lib/python3.12/site-packages/pyuvm/extension_classes.py" lineno="10" time="0.19682002067565918" sim_time_ns="42.0" ratio_time="213.39292545453003" />
+    <testcase name="sat_tb_rnd_n_seq_test" classname="tests.sat_tb_rand_n_seq_test" file="/home/Lasse-docker/02207-repo-fork-github/.venv/lib/python3.12/site-packages/pyuvm/extension_classes.py" lineno="10" time="0.8320376873016357" sim_time_ns="186.0" ratio_time="223.54756622048308" />
+    <testcase name="sat_tb_min_rnd_n_seq_test" classname="tests.sat_tb_min_rand_n_seq_test" file="/home/Lasse-docker/02207-repo-fork-github/.venv/lib/python3.12/site-packages/pyuvm/extension_classes.py" lineno="10" time="0.7583644390106201" sim_time_ns="190.0" ratio_time="250.53917381447687" />
+  </testsuite>
+</testsuites>

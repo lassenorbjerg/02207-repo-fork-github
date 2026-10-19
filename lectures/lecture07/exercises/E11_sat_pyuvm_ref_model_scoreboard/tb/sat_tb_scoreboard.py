@@ -42,10 +42,22 @@ class sat_tb_scoreboard(uvm_scoreboard):
 
         await super().run_phase()
 
+        while True:
+            con_item = await self.uvc_ssdt_consumer_fifo.get()
+            ref_item = await self.ref_model_fifo.get()
+            if con_item.data == ref_item.data:
+                self.succes += 1
+            else:
+                self.failure += 1
+                self.logger.debug("Failure")
+                self.log_items(con_item, ref_item)
+
 
     # Report the results of the comparisons
     def check_phase(self):
         super().check_phase()
+        self.logger.debug(f"{(self.succes,self.failure)}")
+        assert self.failure == 0
 
 
     def log_items(self, consumer_item, ref_model_item):
