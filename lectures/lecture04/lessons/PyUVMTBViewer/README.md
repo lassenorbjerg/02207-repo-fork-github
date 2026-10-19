@@ -10,7 +10,7 @@ Activate the repository development environment, change to the lesson
 directory, and start the application:
 
 ```shell
-cd lessons/08_UVM_test_env_seqs
+cd lessons/LE08_UVM_test_env_seqs
 python -m PyUVMTBViewer
 ```
 

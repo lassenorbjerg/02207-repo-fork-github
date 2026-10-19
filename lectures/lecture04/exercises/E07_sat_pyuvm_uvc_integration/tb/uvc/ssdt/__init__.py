@@ -1,4 +1,4 @@
-# ruff: noqa: E402
+# ruff: noqa: E402, I001
 """Source files for SSDT UVC"""
 __all__ = []
 from .src.uvc_ssdt_agent import uvc_ssdt_agent
@@ -16,11 +16,12 @@ __all__ += [
 ]
 from .src.uvc_ssdt_config import uvc_ssdt_config
 from .src.uvc_ssdt_interface import ssdt_interface_wrapper
+
 from .src.uvc_ssdt_seq_item import uvc_ssdt_seq_item
 
 __all__ += [
     "uvc_ssdt_config",
-    "uvc_ssdt_monitor",
+    "ssdt_interface_wrapper",
     "uvc_ssdt_seq_item",
  ]
 from .src.uvc_ssdt_sequence_lib import (

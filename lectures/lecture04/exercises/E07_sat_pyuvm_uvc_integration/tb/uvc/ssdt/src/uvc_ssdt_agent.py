@@ -12,6 +12,7 @@ from pyuvm import (
     ConfigDB,
     uvm_active_passive_enum,
     uvm_agent,
+    uvm_analysis_port,
     uvm_sequencer,
 )
 
@@ -35,6 +36,9 @@ class uvc_ssdt_agent(uvm_agent):
         self.sequencer = None   # Sequencer handler
         self.driver = None      # Driver handler
 
+        self.analysis_port = None   # Analysis Port handler
+
+        # Define the coverage handle
 
         self.logger.debug("Agent initialized.")
 
@@ -67,6 +71,12 @@ class uvc_ssdt_agent(uvm_agent):
             self.logger.debug("Creating Sequencer...")
             self.sequencer = uvm_sequencer.create("sequencer", self)
             self.logger.debug("Sequencer created.")
+
+
+
+
+        # Create instance of Analysis Port
+        self.analysis_port = uvm_analysis_port("analysis_port", self)
 
         self.logger.debug(f"Agent {self.get_name()} built!!")
 
