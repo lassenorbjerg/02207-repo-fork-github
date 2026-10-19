@@ -58,6 +58,10 @@ class sat_tb_base_test(uvm_test):
         # Saturation filter coverage - OVF
         self.sat_cov = None
 
+        # SSDT interface assertions
+        self.producer_assert_check = None
+        self.consumer_assert_check = None
+
     def build_phase(self):
         self.logger.debug("Start build_phase() -> SAT base test")
         super().build_phase()
@@ -94,6 +98,9 @@ class sat_tb_base_test(uvm_test):
         self.sat_cov = covergroup_sat(name="sat_cov")
 
         self.logger.debug("End build_phase() -> SAT base test")
+
+        self.producer_assert_check = ssdt_interface_assert_check(clk_signal=self.dut.clk,rst_signal=self.dut.rst,valid_signal=self.dut.out_valid,data_signal=self.dut.out_data,name="producer_assert_check")
+        self.consumer_assert_check = ssdt_interface_assert_check(clk_signal=self.dut.clk,rst_signal=self.dut.rst,valid_signal=self.dut.in_valid,data_signal=self.dut.in_data,name="consumer_assert_check")
 
     def connect_phase(self):
         self.logger.debug("Start connect_phase() -> SAT base test")
@@ -137,12 +144,19 @@ class sat_tb_base_test(uvm_test):
 
         self.logger.debug("End run_phase() -> SAT base test")
 
+        self.producer_assert_check.check_assertions()
+        self.consumer_assert_check.check_assertions()
+
     def report_phase(self):
         self.logger.debug("report_phase() Base Test")
         super().report_phase()
 
         # Creating coverage report with PyVSC
         self.create_pyvsc_coverage_report()
+
+        assert self.producer_assert_check.passed
+        assert self.consumer_assert_check.passed
+
 
     # Monitor loop to trigger the sample mechanism of the ovf signal
     async def monitor_loop_ovf(self):

@@ -7,13 +7,13 @@ __all__ += ["uvc_ssdt_agent"]
 
 from .src.uvc_ssdt_base_driver import uvc_ssdt_base_driver
 from .src.uvc_ssdt_consumer_driver import uvc_ssdt_consumer_driver
-from .src.uvc_ssdt_interface_assertions import ssdt_interface_assert_check
+# from .src.uvc_ssdt_interface_assertions import ssdt_interface_assert_check
 from .src.uvc_ssdt_producer_driver import uvc_ssdt_producer_driver
 
 __all__ += [
     "uvc_ssdt_base_driver",
     "uvc_ssdt_consumer_driver",
-    "ssdt_interface_assert_check",
+    # "ssdt_interface_assert_check",
     "uvc_ssdt_producer_driver",
 ]
 from .src.uvc_ssdt_config import uvc_ssdt_config

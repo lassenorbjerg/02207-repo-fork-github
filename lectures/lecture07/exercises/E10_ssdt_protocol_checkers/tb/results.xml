@@ -1,0 +1,22 @@
+<testsuites name="results">
+  <testsuite name="all" package="all">
+    <property name="random_seed" value="1792395647" />
+    <testcase name="sat_tb_around_threshold_test" classname="tests.sat_tb_around_threshold_test" file="/home/Lasse-docker/02207-repo-fork-github/.venv/lib/python3.12/site-packages/pyuvm/extension_classes.py" lineno="10" time="0.06757616996765137" sim_time_ns="0.0" ratio_time="0.0">
+      <failure error_type="AttributeError" error_msg="module 'pyboolector' has no attribute 'BTOR_OPT_INCREMENTAL'" />
+    </testcase>
+    <testcase name="sat_tb_default_test" classname="tests.sat_tb_default_test" file="/home/Lasse-docker/02207-repo-fork-github/.venv/lib/python3.12/site-packages/pyuvm/extension_classes.py" lineno="9" time="0.12269806861877441" sim_time_ns="10.0" ratio_time="81.50087538109682" />
+    <testcase name="sat_tb_less_than_threshold_test" classname="tests.sat_tb_less_than_threshold_test" file="/home/Lasse-docker/02207-repo-fork-github/.venv/lib/python3.12/site-packages/pyuvm/extension_classes.py" lineno="10" time="0.03731536865234375" sim_time_ns="2.0" ratio_time="53.59721938253936">
+      <failure error_type="AttributeError" error_msg="module 'pyboolector' has no attribute 'BTOR_OPT_INCREMENTAL'" />
+    </testcase>
+    <testcase name="sat_tb_over_threshold_test" classname="tests.sat_tb_over_threshold_test" file="/home/Lasse-docker/02207-repo-fork-github/.venv/lib/python3.12/site-packages/pyuvm/extension_classes.py" lineno="10" time="0.04329800605773926" sim_time_ns="2.0" ratio_time="46.191503537898186">
+      <failure error_type="AttributeError" error_msg="module 'pyboolector' has no attribute 'BTOR_OPT_INCREMENTAL'" />
+    </testcase>
+    <testcase name="sat_tb_random_test" classname="tests.sat_tb_random_test" file="/home/Lasse-docker/02207-repo-fork-github/.venv/lib/python3.12/site-packages/pyuvm/extension_classes.py" lineno="10" time="0.8899621963500977" sim_time_ns="42.0" ratio_time="47.193015807019556" />
+    <testcase name="sat_tb_rnd_n_seq_test" classname="tests.sat_tb_rand_n_seq_test" file="/home/Lasse-docker/02207-repo-fork-github/.venv/lib/python3.12/site-packages/pyuvm/extension_classes.py" lineno="10" time="0.0436253547668457" sim_time_ns="2.0" ratio_time="45.84489938681153">
+      <failure error_type="AttributeError" error_msg="module 'pyboolector' has no attribute 'BTOR_OPT_INCREMENTAL'" />
+    </testcase>
+    <testcase name="sat_tb_min_rnd_n_seq_test" classname="tests.sat_tb_min_rand_n_seq_test" file="/home/Lasse-docker/02207-repo-fork-github/.venv/lib/python3.12/site-packages/pyuvm/extension_classes.py" lineno="10" time="0.04616737365722656" sim_time_ns="2.0" ratio_time="43.32063623218343">
+      <failure error_type="AttributeError" error_msg="module 'pyboolector' has no attribute 'BTOR_OPT_INCREMENTAL'" />
+    </testcase>
+  </testsuite>
+</testsuites>
