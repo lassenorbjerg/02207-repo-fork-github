@@ -1,0 +1,139 @@
+Factory
+=======
+
+The ``uvm_factory`` is used to create ``uvm_object`` and ``uvm_component`` instances.
+It implements the `factory pattern`_. Objects are not instantiated directly
+though their constructor, instead the ``create()`` method is called, which
+requests an object of the caller class (type) from the factory. This allows for
+run time class overrides, i.e. altering the returned type for a specific
+request.
+
+.. _factory pattern: https://en.wikipedia.org/wiki/Factory_method_pattern
+
+Type registration
+-----------------
+
+Classes extending ``uvm_object`` or ``uvm_component`` are automatically
+registered with the factory. *PyUVM* does not require registration macros or a
+manual registration call. Both ``uvm_object`` and ``uvm_component`` implement a
+``create()`` method to request an object of the class type.
+
+Creating objects and components
+-------------------------------
+
+The ``create()`` method returns an object of the class type. It also works for
+any subclasses of ``uvm_object`` or ``uvm_component``.
+
+The ``create()`` method for ``umv_object`` takes only a name:
+
+.. code-block:: python
+
+   class sat_tb_config(uvm_object)
+      ...
+
+   self.cfg = sat_tb_config.create(
+      name="cfg",
+   )
+
+The ``create()`` method for ``uvm_component`` takes a name and parent instance:
+
+.. code-block:: python
+
+   class sat_tb_env(uvm_component)
+      ...
+
+   self.tb_env = sat_tb_env.create(
+       name   = "env",
+       parent = self,
+   )
+
+Calling the class constructor directly bypasses the factory, so factory
+overrides do not affect that instance.
+
+.. code-block:: python
+
+   class sat_tb_env(uvm_component)
+      ...
+
+   # Env not affected by overrides. Do not do this!
+   self.tb_env = sat_tb_env(
+       name   = "env",
+       parent = self,
+   )
+
+Overrides
+---------
+
+An override replaces a requested class with another class. The override has to
+be issued before the affected ``create()`` call. It does not replace instances
+that have already been created.
+
+There are two kinds of overrides:
+
+* A type override applies to every factory request for the original class.
+* An instance override only applies when the request matches an instance path.
+
+Overrides are resolved as follows:
+
+- Instance overrides take precedence over type overrides.
+- Instance overrides are resolved in the order they are registers, meaning the
+  first matching instance override wins.
+- Only one type override can exist per type. If a new type override is
+  registered it takes precedent.
+
+Type overrides
+~~~~~~~~~~~~~~
+
+.. code-block:: python
+
+   def set_type_override_by_type(original_type, override_type, replace=True)
+
+**Arguments:**
+
+* ``original_type``: The class to replace.
+* ``override_type``: The class to create instead.
+* ``replace``: Whether an existing type override may be replaced.
+* Returns: ``None``.
+
+For example, this replaces every factory request for ``sat_tb_default_seq``
+with ``sat_tb_random_seq``:
+
+.. code-block:: python
+
+   uvm_factory().set_type_override_by_type(
+       original_type = sat_tb_default_seq,
+       override_type = sat_tb_random_seq,
+   )
+
+   sequence = sat_tb_default_seq.create(name="top_sequence")
+
+Although the request names ``sat_tb_default_seq``, ``sequence`` is an instance
+of ``sat_tb_random_seq``.
+
+Instance overrides
+~~~~~~~~~~~~~~~~~~
+
+.. code-block:: python
+
+   def set_inst_override_by_type(original_type, override_type, full_inst_path)
+
+**Arguments:**
+
+* ``original_type``: The class to replace.
+* ``override_type``: The class to create instead.
+* ``full_inst_path``: The instance path or wildcard path pattern to match.
+* Returns: ``None``.
+
+The path can contain :ref:`wildcard patterns <wildcard-path-patterns>`. For
+example, this replaces the monitor in every agent below ``env``:
+
+.. code-block:: python
+
+   uvm_factory().set_inst_override_by_type(
+       original_type  = default_monitor,
+       override_type  = checking_monitor,
+       full_inst_path = "uvm_test_top.env.*_agent.monitor",
+   )
+
+The ``*`` matches both ``producer_agent`` and ``consumer_agent``, while
+monitors at other paths are unchanged.

@@ -5,12 +5,12 @@ class ssdt_interface_wrapper:
     """ Python interface wrapper for SSDT.
     """
 
-    def __init__(self, clk=None, rst=None, name="ssdt_interface"):
+    def __init__(self, name="ssdt_interface"):
 
         self.name  = name
 
-        self.clk   = clk
-        self.rst   = rst
+        self.clk   = None
+        self.rst   = None
 
         self.valid = None
         self.data  = None

@@ -7,6 +7,8 @@ from pyuvm import ConfigDB, uvm_test, uvm_report_object
 from sat_tb_config import sat_tb_config
 from sat_tb_default_seq import sat_tb_default_seq
 from sat_tb_env import sat_tb_env
+
+# Use the reusable interface wrapper provided by the SSDT UVC.
 from uvc.ssdt import (
     ssdt_interface_wrapper,
 )

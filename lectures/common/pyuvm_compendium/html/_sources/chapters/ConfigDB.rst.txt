@@ -1,0 +1,133 @@
+ConfigDB
+========
+
+The configuration database, ``ConfigDB``, is a shared, path-based database.
+Components can store a value using ``set()``, and retrieve it using ``get()``.
+The value is identified by a field name, similar to a dictionary, and an
+instance path. A key value pair is only 'visible' to a single (or multiple)
+components.
+
+In pyuvm the ``ConfigDB`` is a `singleton`_ object. ``ConfigDB()``
+always accesses the same database object.
+
+.. _singleton: https://en.wikipedia.org/wiki/Singleton_pattern
+
+
+.. _context-and-instance-path:
+
+Context and instance paths
+--------------------------
+
+Both ``set()`` and ``get()`` take two arguments to resolve the effective lookup path.
+
+1. ``context``, an object of type ``uvm_component``
+2. ``inst_name``, a string
+
+The effective lookup path is resolved from the full instance path of
+``context`` with the ``inst_name`` appended. So for a ``ConfigDB`` call with
+
+* ``context``: ``sat_default_test`` (full instance path: ``"uvm_test_top"``)
+* ``inst_name``: ``"env"``
+
+Produces ``"uvm_test_top.env"`` as the effective lookup path.
+
+The ``context`` should almost always be the current component referenced by
+``self``. Then, from the  perspective of the ``context``, ``inst_name`` selects
+the child or descendant to configure. From the receiving component's
+perspective (again passing itself as ``context``) using ``inst_name=""`` selects
+its own full instance path. For example, if ``env`` is a child of
+``uvm_test_top``:
+
+.. code-block:: python
+
+   # In the test (uvm_test_top):
+   ConfigDB().set(
+       context    = self,
+       inst_name  = "env",
+       field_name = "cfg",
+       value      = self.cfg,
+   )
+
+   # In the environment (uvm_test_top.env):
+   self.cfg = ConfigDB().get(
+       context    = self,
+       inst_name  =  "",
+       field_name ="cfg",
+   )
+
+Both calls resolve to ``uvm_test_top.env``, so the environment retrieves
+the config. Using itself as context means that the environment does not need
+to specify its full path or know the name of the test above it.
+
+``set()`` also accepts wildcards in the ``inst_name`` see
+:ref:`wildcard-path-patterns`.
+
+ConfigDB set()
+--------------
+
+.. code-block:: python
+
+   def set(context, inst_name, field_name, value)
+
+Stores a value under ``field_name`` at the path or path
+pattern formed from ``context`` and ``inst_name``. The ``inst_name`` is
+relative to the context component's full instance path. With
+``context=None``, it is a full path or path pattern from the root.
+
+**Arguments:**
+
+* ``context``: A ``uvm_component`` used as the base for the path, or ``None``
+  to use the root context.
+* ``inst_name``: An instance path relative to ``context``. Use ``""`` for
+  the context component itself. Wildcards are allowed.
+* ``field_name``: The key at which to store the value.
+* ``value``: The value to store.
+* Returns: ``None``.
+
+ConfigDB get()
+--------------
+
+.. code-block:: python
+
+   def get(context, inst_name, field_name, default=default_get)
+
+Retrieves a value by matching the concrete path formed from
+``context`` and ``inst_name`` against the stored paths and path patterns,
+then looking up ``field_name``. The ``inst_name`` is relative to the context
+component's full instance path. With ``context=None``, it is a full path
+from the root.
+
+**Arguments:**
+
+* ``context``: A ``uvm_component`` used as the base for the path, or ``None``
+  to use the root context.
+* ``inst_name``: A concrete instance path relative to ``context``, without
+  wildcards.
+* ``field_name``: The key for the value to retrieve.
+* ``default``: The value to return if no matching configuration value is
+  found.
+* Returns: The stored value, or the supplied ``default`` if no matching
+  configuration value is found.
+
+Why use the ConfigDB instead of direct assignments?
+---------------------------------------------------
+
+A direct assignment such as ``self.env.driver.timeout_cycles = 100``
+requires the test to have access to the driver object and to know which
+attribute to change. The driver must also exist before the assignment can
+be made. This couples the test to the Python object structure of the
+environment.
+
+With the ``ConfigDB``, the test specifies a value and the
+instance path where it should be available. The receiving component
+retrieves the value under an agreed field name and assigns its own
+attributes. The value can be stored before the receiving component exists,
+because the database stores paths rather than looking up component objects
+when ``set()`` is called. This is useful during ``build_phase()``, when
+parents configure components that will be created further down the hierarchy.
+
+The receiving component does not need to know the name of the test or how
+to navigate the Python references above it. It can retrieve configuration
+relative to its own instance path, making it easier to reuse in another
+environment. The test and component must still agree on the field name,
+the meaning of the value, and a matching instance path.
