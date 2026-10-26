@@ -11,11 +11,7 @@ class sat_ref_model(uvm_subscriber):
         super().__init__(name, parent)
 
 
-
-
-
     def write(self, item):
         # This is the write function of the analysis export from the uvm_subscriber
         self.logger.info(f"Ref. model recieved {item}")
-
 
