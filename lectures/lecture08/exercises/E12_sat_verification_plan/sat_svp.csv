@@ -1,10 +1,9 @@
-ID ,Design requirement ,Coverage             ,Verification Criteria  ,Priority ,Type     ,Comment
- 1 ,DR1                ,Reset coverpoint     ,All checkers enabled   ,Medium   ,Design   ,-
- 2 ,DR2                ,N/A                  ,Design Inspection      ,Medium   ,Design   ,-
- 3 ,DR3                ,N/A                  ,Propagation Checker    ,High     ,Design   ,-
- 4 ,DR4                ,SSDT Data coverpoint ,Ref. Model             ,High     ,Design   ,-
- 5 ,DR5                ,Overflow coverpoint  ,Overflow Checker       ,High     ,Design   ,-
- 6 ,DR6                ,N/A                  ,SSDT Interface Checker ,High     ,Protocol ,-
- 7 ,PR1                ,N/A                  ,SSDT Interface Checker ,High     ,Protocol ,-
- 8 ,PR2                ,N/A                  ,SSDT Interface Checker ,High     ,Protocol ,-
- 9 ,PR3                ,N/A                  ,SSDT Interface Checker ,High     ,Protocol ,-
+ID ,Design requirement ,Coverage         ,Verification Criteria ,Priority        ,Type            ,Comment
+ 0 ,Description        ,cover group name ,Checker/Ref Model/... ,High/Medium/Low ,Design/Protocol ,Additional Info
+ 1 ,DR/01        ,Possible to reset state by toggling rst ,checker ,High ,Protocol? ,Unclear what state means?
+ 2 ,DR/02        ,All signals shall react to the risign edge of the input clk signal ,Checker ,High ,Design ,
+ 3 ,DR/03        , in_valid and in_data always propagated to output on next rising edge of clk,Checker ,High ,Design ,Additional Info
+ 4 ,DR/04        , The saturation functionality of the design shall be evaluated with the THRESHOLD parameter value. If in_data is above the THRESHOLD, the data is saturated and the out_data signal will be equal to the THRESHOLD. Otherwise the out_data will be equal to in_data.,Ref Model ,High ,Design ,Additional Info
+ 5 ,DR/05        ,if the data is saturated the overflow signal shall be high ,Checker ,High ,Design ,Additional Info
+ 6 ,DR/06        , The Saturation Filter shall be compliant with the sSDT (simple SyoSil Data Transfer) protocol,Ref Model ,High ,Protocol ,Additional Info
+ 7 ,PR1 , 

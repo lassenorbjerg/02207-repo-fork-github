@@ -1,0 +1,10 @@
+ID ,Design requirement ,Coverage             ,Verification Criteria  ,Priority ,Type     ,Comment
+ 1 ,DR1                ,Reset coverpoint     ,All checkers enabled   ,Medium   ,Design   ,-
+ 2 ,DR2                ,N/A                  ,Design Inspection      ,Medium   ,Design   ,-
+ 3 ,DR3                ,N/A                  ,Propagation Checker    ,High     ,Design   ,-
+ 4 ,DR4                ,SSDT Data coverpoint ,Ref. Model             ,High     ,Design   ,-
+ 5 ,DR5                ,Overflow coverpoint  ,Overflow Checker       ,High     ,Design   ,-
+ 6 ,DR6                ,N/A                  ,SSDT Interface Checker ,High     ,Protocol ,-
+ 7 ,PR1                ,N/A                  ,SSDT Interface Checker ,High     ,Protocol ,-
+ 8 ,PR2                ,N/A                  ,SSDT Interface Checker ,High     ,Protocol ,-
+ 9 ,PR3                ,N/A                  ,SSDT Interface Checker ,High     ,Protocol ,-
