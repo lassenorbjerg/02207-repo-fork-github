@@ -28,12 +28,6 @@ class sat_tb_scoreboard(uvm_scoreboard):
         self.succes = 0
         self.failure = 0
 
-    def build_phase(self):
-
-        super().build_phase()
-
-        # Create the analysis FIFOs
-
     async def run_phase(self):
         """
         - Get the item from the FIFOs

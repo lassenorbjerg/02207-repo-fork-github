@@ -11,7 +11,6 @@ from sat_coverage import covergroup_sat
 from sat_tb_base_seq import sat_tb_base_seq
 from sat_tb_config import sat_tb_config
 from sat_tb_env import sat_tb_env
-from ssdt_interface_assertions import ssdt_interface_assert_check
 
 # Use the reusable interface wrapper provided by the SSDT UVC.
 from uvc.ssdt import (

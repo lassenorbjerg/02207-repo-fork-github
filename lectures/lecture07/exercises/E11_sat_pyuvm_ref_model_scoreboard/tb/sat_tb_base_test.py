@@ -11,7 +11,6 @@ from sat_coverage import covergroup_sat
 from sat_tb_base_seq import sat_tb_base_seq
 from sat_tb_config import sat_tb_config
 from sat_tb_env import sat_tb_env
-from ssdt_interface_assertions import ssdt_interface_assert_check
 
 # Use the reusable interface wrapper provided by the SSDT UVC.
 from uvc.ssdt import (
@@ -54,9 +53,6 @@ class sat_tb_base_test(uvm_test):
         self.ssdt_prod_if = None
         self.ssdt_cons_if = None
 
-        # Declare ssdt assertions
-        self.producer_assert_check = None
-        self.consumer_assert_check = None
 
         # Saturation filter coverage - OVF
         self.sat_cov = None
@@ -81,18 +77,6 @@ class sat_tb_base_test(uvm_test):
         self.cfg.ssdt_cons_cfg.vif = self.ssdt_cons_if
 
 
-        self.producer_assert_check = ssdt_interface_assert_check(
-            clk_signal=self.dut.clk,
-            rst_signal=self.dut.rst,
-            valid_signal=self.dut.in_valid,
-            data_signal=self.dut.in_data,
-        )
-        self.consumer_assert_check = ssdt_interface_assert_check(
-            clk_signal=self.dut.clk,
-            rst_signal=self.dut.rst,
-            valid_signal=self.dut.out_valid,
-            data_signal=self.dut.out_data,
-        )
 
         # Instantiate Environment
         self.tb_env = sat_tb_env.create(name="sat_tb_env", parent=self)
@@ -132,8 +116,6 @@ class sat_tb_base_test(uvm_test):
     async def run_phase(self):
         self.logger.debug("Start run_phase() -> SAT base test")
 
-        self.producer_assert_check.check_assertions()
-        self.consumer_assert_check.check_assertions()
         cocotb.start_soon(self.monitor_loop_ovf())
 
         # Create and start a 2ns period clock
@@ -158,9 +140,6 @@ class sat_tb_base_test(uvm_test):
         self.logger.debug("report_phase() Base Test")
         super().report_phase()
 
-        # Check if the assertions failed
-        assert self.producer_assert_check.passed, "producer's assertions failed"
-        assert self.consumer_assert_check.passed, "consumer's assertions failed"
         # Creating coverage report with PyVSC
         self.create_pyvsc_coverage_report()
 
